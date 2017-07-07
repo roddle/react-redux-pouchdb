@@ -11,7 +11,8 @@ window.PouchDB = PouchDB
 export default (initialState = {}) => {
 
   // Set up the PouchDB remote, local, and sync the two
-  const remotedb = new PouchDB('http://54.237.198.160:5984/counter');
+  //const remotedb = new PouchDB('http://54.237.198.160:5984/counter');
+  const remotedb = new PouchDB('http://192.168.1.246:5984/counter');
   const db = new PouchDB('counter')
   db.sync(remotedb, {
     live: true,
