@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
-import { persistentStore } from 'redux-pouchdb'
+import { persistentStore } from '@abhinavzspace/redux-pouchdb-plus'
 import PouchDB from 'pouchdb'
 // for debugging with PouchDB development tools
 window.PouchDB = PouchDB
@@ -12,8 +12,11 @@ export default (initialState = {}) => {
 
   // Set up the PouchDB remote, local, and sync the two
   //const remotedb = new PouchDB('http://54.237.198.160:5984/counter');
-  const remotedb = new PouchDB('http://192.168.1.246:5984/counter');
+  const remotedb = new PouchDB('http://192.168.1.246:5984/counter')
   const db = new PouchDB('counter')
+  
+  db.replicate.from(remotedb)
+
   db.sync(remotedb, {
     live: true,
     retry: true
@@ -29,7 +32,7 @@ export default (initialState = {}) => {
   // ======================================================
   const enhancers = [
     // set the store to persist to the local PouchDB
-    persistentStore(db)
+    persistentStore({db})
   ]
 
   let composeEnhancers = compose

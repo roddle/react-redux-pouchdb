@@ -1,4 +1,4 @@
-import { persistentReducer } from 'redux-pouchdb'
+import { persistentReducer } from '@abhinavzspace/redux-pouchdb-plus'
 
 // ------------------------------------
 // Constants
